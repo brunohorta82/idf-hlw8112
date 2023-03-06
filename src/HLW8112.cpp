@@ -13,6 +13,7 @@
 #define D_CAL_B_I 1
 #define TICK_UART_RESPONSE 10
 #define HWL_TAG "HLW8112"
+
 int s_hlw_error_count = 0;
 union IntData
 {
