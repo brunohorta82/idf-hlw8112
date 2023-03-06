@@ -1,4 +1,4 @@
-#include "HLW8112.h"
+#include "HLW8112.hpp"
 #include "stdio.h"
 #include <esp_log.h>
 #include "driver/uart.h"
