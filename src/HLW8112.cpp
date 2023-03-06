@@ -2,10 +2,7 @@
 #include "stdio.h"
 #include <esp_log.h>
 #include "driver/uart.h"
-#include "freertos/Freertos.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "Utils.h"
+#include "math.h"
 #define HIGH 1
 #define LOW 0
 #define D_CAL_U 1
@@ -85,6 +82,10 @@ float F_AC_P_B;
 float F_AC_E_B;
 float F_AC_BACKUP_E_B;
 float F_AC_LINE_Freq;
+double valuePrecision(double value, double precision)
+{
+	return (floor((value * pow(10, precision) + 0.5)) / pow(10, precision));
+}
 unsigned char HLW8112_checkSum_Write(unsigned char u8_Reg_length)
 {
 	unsigned char i;
@@ -799,10 +800,10 @@ int Calculate_HLW8112_MeterData(struct PowerReadings *rA, struct PowerReadings *
 	Read_HLW8112_PB();
 	a->voltage = F_AC_V;
 	a->current = F_AC_I;
-	a->power = floatPrecision(a->current, 2) == 0.0 ? 0.0 : F_AC_P;
+	a->power = valuePrecision(a->current, 2) == 0.0 ? 0.0 : F_AC_P;
 	b->voltage = F_AC_V;
 	b->current = F_AC_I_B;
-	b->power = floatPrecision(b->current, 2) == 0.0 ? 0.0 : F_AC_P_B;
+	b->power = valuePrecision(b->current, 2) == 0.0 ? 0.0 : F_AC_P_B;
 #ifdef CONFIG_POWER_METTER_DEBUG
 	ESP_LOGI(HWL_TAG, "CHANNEL A:  %f Volts  %f Amps %f Watts %f KWH", F_AC_V, F_AC_I, F_AC_P, F_AC_E);
 	ESP_LOGI(HWL_TAG, "CHANNEL B:  %f Volts  %f Amps %f Watts %f KWH", F_AC_V, F_AC_I_B, F_AC_P_B, F_AC_E_B);

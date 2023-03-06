@@ -1,5 +1,8 @@
 #pragma once
-#include "CorePowerMeter.h"
+#include "freertos/Freertos.h"
+#include "freertos/task.h"
+#include "freertos/semphr.h"
+#include "freertos/timers.h"
 #define REG_SYSCON_ADDR 0x00
 #define REG_EMUCON_ADDR 0x01
 #define REG_HFCONST_ADDR 0x02
@@ -37,6 +40,15 @@
 #define REG_ENERGY_BC_ADDR 0x77
 
 #define D_TIME1_50MS 50
+class PowerReadings
+{
+public:
+    int meterId;
+    float voltage;
+    float current;
+    float power;
+    time_t timestamp;
+};
 
 void Init_HLW8112();
 unsigned char HLW8112_checkSum_Read(unsigned char u8_Reg_length);

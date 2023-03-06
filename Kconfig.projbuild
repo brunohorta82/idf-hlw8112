@@ -1,0 +1,15 @@
+
+    menu "Powermeter Config"
+         config POWER_METTER_DEBUG
+         bool "Debug"
+         default n 
+         config PIN_PM_RX
+            int "RX Pin"
+            default 18
+         config PIN_PM_TX
+            int "TX Pin"
+            default 17
+         config PM_ERROR_MAX_RETRY
+            int "Max retry error"
+            default 5
+    endmenu    
