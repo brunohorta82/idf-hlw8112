@@ -54,6 +54,10 @@ public:
     float current;
     float power;
     time_t timestamp;
+    PowerReadings(int id)
+    {
+        this->meterId = id;
+    }
 };
 
 void Init_HLW8112();
