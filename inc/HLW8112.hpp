@@ -40,6 +40,12 @@
 #define REG_ENERGY_BC_ADDR 0x77
 
 #define D_TIME1_50MS 50
+#define bitRead(value, bit) (((value) >> (bit)) & 0x01)
+#define VOLTAGE_DIVIDER 1880000         // Voltage divider Upstream resistors 470K*4  1880K
+#define VOLTAGE_DIVIDER_DOWNSTREAM 1000 // Voltage divider downstream resistors  1K
+#define SHUNT_RESISTOR 0.1
+#define PW_METRICS_PUBLISH_TIME_MS 2000
+#define SYNC_TIME_MS 1000
 class PowerReadings
 {
 public:
