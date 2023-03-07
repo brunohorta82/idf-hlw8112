@@ -50,7 +50,7 @@
 class PowerReadings
 {
 private:
-    int meterId;
+    int id;
     constexpr float valuePrecision(float value, float precision)
     {
         return (floor((value * pow(10, precision) + 0.5)) / pow(10, precision));
@@ -63,8 +63,12 @@ public:
     time_t timestamp;
     PowerReadings(int id)
     {
-        this->meterId = id;
+        this->id = id;
     }
+    constexpr float getId()
+    {
+        return id;
+    };
     constexpr float getVoltage(float precision)
     {
         return valuePrecision(voltage, precision);
