@@ -3,6 +3,7 @@
 #include "freertos/task.h"
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
+#include "math.h"
 #define REG_SYSCON_ADDR 0x00
 #define REG_EMUCON_ADDR 0x01
 #define REG_HFCONST_ADDR 0x02
@@ -48,8 +49,14 @@
 #define SYNC_TIME_MS 1000
 class PowerReadings
 {
-public:
+private:
     int meterId;
+    constexpr float valuePrecision(float value, float precision)
+    {
+        return (floor((value * pow(10, precision) + 0.5)) / pow(10, precision));
+    }
+
+public:
     float voltage;
     float current;
     float power;
@@ -58,6 +65,18 @@ public:
     {
         this->meterId = id;
     }
+    constexpr float getVoltage(float precision)
+    {
+        return valuePrecision(voltage, precision);
+    };
+    constexpr float getCurrent(float precision)
+    {
+        return valuePrecision(current, precision);
+    };
+    constexpr float getPower(float precision)
+    {
+        return valuePrecision(power, precision);
+    };
 };
 
 void Init_HLW8112();
