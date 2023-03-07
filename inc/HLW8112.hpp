@@ -65,7 +65,7 @@ public:
     {
         this->id = id;
     }
-    constexpr float getId()
+    constexpr int getId()
     {
         return id;
     };
